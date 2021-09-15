@@ -1,0 +1,13 @@
+backup
+output
+code/*.pyc
+code/miscc/*.pyc
+.DS_Store
+.idea/
+.vscode/
+runs/
+wandb/
+__pycache__/
+class_info.pickle
+filenames.pickle
+code/*.png

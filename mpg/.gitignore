@@ -1,0 +1,7 @@
+runs/
+wandb/
+__pycache__/
+*.pkl
+.ipynb_checkpoints
+*.pt
+assets/

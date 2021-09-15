@@ -1,0 +1,15 @@
+dataset_name: pizza10
+model_name: StackGAN2
+retrieval_model: retrieval_model/runs/u9zyj9na/e27.pt
+classifier: ingr_classifier/runs/pizza10/1t5xrvwx/batch5000.ckpt
+inception: inception_pizza10.pkl
+
+ckpt_dir: stackgan2/runs/199iwv2f
+ckpt_path: stackgan2/runs/199iwv2f/batch080000.ckpt
+
+device: cuda
+batch_size: 16
+size: 256
+n_sample: 5000
+seed: 8
+truncation: 1.0
