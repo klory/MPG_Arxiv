@@ -10,7 +10,7 @@ pip install -r requirements.txt
 pip install git+https://github.com/pytorch/tnt.git@master
 ```
 
-# Pretrained models in google-link
+# Pretrained models
 Pretrained models are stored in [google-link](https://drive.google.com/drive/folders/12plZIczJJcGMD8W0VnVocYh-jXwg3t8N?usp=sharing), files are already in their desired locations, so following the same directory structure will minimize burdens to run the code inside the project (some files are not necessary for the current version of the project as of 2021-03-31).
 
 # Pizza10 dataset
@@ -117,6 +117,8 @@ CUDA_VISIBLE_DEVICES=0 python generate_samples.py --model=mpg
 
 # CookGAN
 
+Check the [official code of CookGAN](https://github.com/klory/CookGAN) for more details.
+
 ## Train
 ```
 CUDA_VISIBLE_DEVICES=0 python models.py --cycle_img=1.0
@@ -142,7 +144,7 @@ CUDA_VISIBLE_DEVICES=0 python generate_samples.py --model=mpg
 ```
 
 # Metrics
-> cd to `metrics/`, write your own config file in `configs/`.
+> cd to `metrics/`,
 
 ## FID (Frechet Inception Distance)
 To compute FID, we need to first compute the statistics of the real images.
