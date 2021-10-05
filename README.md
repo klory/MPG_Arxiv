@@ -68,8 +68,7 @@ $ CUDA_VISIBLE_DEVICES=0 python val.py --ckpt_path=runs/u9zyj9na/e27.pt
 ```
 
 # MPG
-* [Paper](https://arxiv.org/abs/2012.02821)
-* [Interactive demo](http://foodai.cs.rutgers.edu:2021/)
+| [Paper](https://arxiv.org/abs/2012.02821) | [Interactive demo](http://foodai.cs.rutgers.edu:2021/) | [Video](https://youtu.be/x3XKXMd1oC8) |
 
 cd to `mpg/`,
 
@@ -88,12 +87,12 @@ $ CUDA_VISIBLE_DEVICES=0,1 python train.py --wandb=0
 ```
 
 ## Validate
-Download the pretrained model `google-link/mpg/runs/1tvnknx5/070000.pt`. 
+Download the pretrained model `google-link/mpg/runs/qo6nm72k/280000.pt`.
 
 cd to `metrics/`:
 
 ```
-CUDA_VISIBLE_DEVICES=0 python generate_samples.py --config=configs/pizza10+mpg.yaml
+CUDA_VISIBLE_DEVICES=0 python generate_samples.py --model=mpg
 ```
 
 # StackGAN2
@@ -113,7 +112,7 @@ CUDA_VISIBLE_DEVICES=0 python models.py --cycle_img=0.0
 cd to `metrics/`
 
 ```
-CUDA_VISIBLE_DEVICES=0 python generate_samples.py --config=configs/pizza10+stackgan2.yaml
+CUDA_VISIBLE_DEVICES=0 python generate_samples.py --model=mpg
 ```
 
 # CookGAN
@@ -127,7 +126,7 @@ CUDA_VISIBLE_DEVICES=0 python models.py --cycle_img=1.0
 cd to `metrics/`
 
 ```
-CUDA_VISIBLE_DEVICES=0 python generate_samples.py --config=configs/pizza10+cookgan.yaml
+CUDA_VISIBLE_DEVICES=0 python generate_samples.py --model=mpg
 ```
 
 # AttnGAN (canary)
@@ -139,7 +138,7 @@ TODO
 cd to `metrics/`
 
 ```
-CUDA_VISIBLE_DEVICES=0 python generate_samples.py --config=configs/pizza10+AttnGAN.yaml
+CUDA_VISIBLE_DEVICES=0 python generate_samples.py --model=mpg
 ```
 
 # Metrics
@@ -153,21 +152,21 @@ CUDA_VISIBLE_DEVICES=0 python calc_inception.py
 ```
 
 ```
-$ CUDA_VISIBLE_DEVICES=0 python fid.py --config=configs/pizza10+mpg.yaml
+$ CUDA_VISIBLE_DEVICES=0 python fid.py --model=mpg
 ```
 
 ## MedR (Medium Rank) for Ingredients
 Computing MedR utilizes the pre-trained retrieval model.
 
 ```
-$ CUDA_VISIBLE_DEVICES=0 python medR.py --config=configs/pizza10+mpg.yaml
+$ CUDA_VISIBLE_DEVICES=0 python medR.py --model=mpg
 ```
 
 ## mAP (mean Average Precision) for Ingredients
 Computing mAP utilizes the pre-trained ingredient classifier.
 
 ```
-$ CUDA_VISIBLE_DEVICES=0 python mAP.py --config=configs/pizza10+mpg.yaml
+$ CUDA_VISIBLE_DEVICES=0 python mAP.py --model=mpg
 ```
 
 # Interactive Web Demo (canary)
