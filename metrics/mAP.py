@@ -44,11 +44,12 @@ if __name__ == '__main__':
     args = load_args()
 
     # assertations
-    assert 'dataset_name' in args.__dict__
+    assert 'dataset' in args.__dict__
     assert 'ckpt_dir' in args.__dict__
     assert 'classifier' in args.__dict__
     assert 'device' in args.__dict__
     assert 'batch_size' in args.__dict__
+
 
     if 'stackgan2/' in args.ckpt_dir:
         from stackgan2.generate_batch import BatchGenerator
@@ -57,15 +58,19 @@ if __name__ == '__main__':
     elif 'mpg/' in args.ckpt_dir:
         from mpg.generate_batch import BatchGenerator
     
+    args.ckpt_dir = ROOT / args.ckpt_dir
+    args.classifier = ROOT / args.classifier
     device = args.device
-    _, _, classifier, _ = load_classifier(ROOT / args.classifier)
+
+    _, _, classifier, _ = load_classifier(args.classifier)
     classifier = classifier.eval().to(device)
     requires_grad(classifier, False)
 
     # *******************************
     # only run for one checkpoint
     # ********************************
-    if hasattr(args, 'ckpt_path'):
+    if not args.sweep:
+        args.ckpt_path = ROOT / args.ckpt_path
         mAP = compute_mAP(args, classifier)
         print(f'mAP={mAP:.4f}')
         sys.exit(0)

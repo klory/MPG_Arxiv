@@ -14,6 +14,11 @@ import pathlib
 
 ROOT = pathlib.Path(__file__).parent.resolve()
 
+def set_random_seed(seed):
+    torch.manual_seed(seed)
+    torch.cuda.manual_seed(seed)
+    np.random.seed(seed)
+
 def normalize(img):
     """
     normalize a batch

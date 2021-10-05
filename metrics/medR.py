@@ -44,11 +44,12 @@ if __name__ == '__main__':
     args = load_args()
 
     # assertations
-    assert 'dataset_name' in args.__dict__
+    assert 'dataset' in args.__dict__
     assert 'ckpt_dir' in args.__dict__
     assert 'retrieval_model' in args.__dict__
     assert 'device' in args.__dict__
     assert 'batch_size' in args.__dict__
+
 
     if 'stackgan2/' in args.ckpt_dir:
         from stackgan2.generate_batch import BatchGenerator
@@ -57,8 +58,11 @@ if __name__ == '__main__':
     elif 'mpg/' in args.ckpt_dir:
         from mpg.generate_batch import BatchGenerator
     
+    args.ckpt_dir = ROOT / args.ckpt_dir
+    args.retrieval_model = ROOT / args.retrieval_model
     device = args.device
-    args_ret, _, tokenizer, txt_encoder, img_encoder, _ = load_retrieval_model(ROOT / args.retrieval_model, device)
+
+    args_ret, _, tokenizer, txt_encoder, img_encoder, _ = load_retrieval_model(args.retrieval_model, device)
     requires_grad(txt_encoder, False)
     requires_grad(img_encoder, False)
     txt_encoder = txt_encoder.eval()
@@ -68,7 +72,8 @@ if __name__ == '__main__':
     # *******************************
     # only run for one checkpoint
     # ********************************
-    if hasattr(args, 'ckpt_path'):
+    if not args.sweep:
+        args.ckpt_path = ROOT / args.ckpt_path
         medR = compute_medR(args)
         print(f'MedR={medR}')
         sys.exit(0)

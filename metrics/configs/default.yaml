@@ -1,0 +1,48 @@
+datasets:
+  pizza10:
+    retrieval_model: retrieval_model/runs/u9zyj9na/e27.pt
+    classifier: ingr_classifier/runs/pizza10/1t5xrvwx/batch5000.ckpt
+    inception: inception_pizza10.pkl
+
+models: 
+  mpg-mapping:
+    ckpt_dir: mpg/runs/3ae90gw9
+    ckpt_path: mpg/runs/3ae90gw9/040000.pt
+
+  mpg-SLE:
+    ckpt_dir: mpg/runs/c1ysmsbe
+    ckpt_path: mpg/runs/c1ysmsbe/040000.pt
+
+  mpg-SLE*:
+    ckpt_dir: mpg/runs/306bmus9
+    ckpt_path: mpg/runs/306bmus9/040000.pt
+
+  mpg-cr:
+    ckpt_dir: mpg/runs/1zg4fv6o
+    ckpt_path: mpg/runs/1zg4fv6o/040000.pt
+
+  mpg:
+    ckpt_dir: mpg/runs/qo6nm72k
+    ckpt_path: mpg/runs/qo6nm72k/280000.pt
+
+  mpg-uncond:
+    ckpt_dir: mpg/runs/2ftkg1ww
+    ckpt_path: mpg/runs/2ftkg1ww/040000.pt
+
+  mpg+matching:
+    ckpt_dir: mpg/runs/2y8walj3
+    ckpt_path: mpg/runs/2y8walj3/270000.pt
+
+
+  # baselines
+  cookgan:
+    ckpt_dir: stackgan2/runs/1q7grcoo
+    ckpt_path: stackgan2/runs/1q7grcoo/batch080000.ckpt
+
+  stackgan2:
+    ckpt_dir: stackgan2/runs/199iwv2f
+    ckpt_path: stackgan2/runs/199iwv2f/batch080000.ckpt
+
+  attngan:
+    ckpt_dir: AttnGAN/output/food_attn2_2020_11_10_11_51_01/Model/netG
+    ckpt_path: AttnGAN/output/food_attn2_2020_11_10_11_51_01/Model/netG/netG_epoch_01800.pth

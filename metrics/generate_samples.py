@@ -43,11 +43,15 @@ if __name__ == '__main__':
     torch.manual_seed(seed)
     np.random.seed(seed)
 
+    args.ckpt_path = common.ROOT / args.ckpt_path
+
     batch_generator = BatchGenerator(args)
     os.chdir(cur_dir)
 
     save_dir = f'outputs/seed={seed}'
     os.makedirs(save_dir, exist_ok=True)
+
+    stem = args.ckpt_path.stem
     
     # ****************************************************************
     # Generate some images
@@ -55,6 +59,6 @@ if __name__ == '__main__':
 
     print('generating images...')
     txt, real, fake, label = batch_generator.generate_all()
-    fp = f'{save_dir}/{args.model_name}_trunc={args.truncation:.2f}.png'
+    fp = f'{save_dir}/{args.model_name}={stem}_trunc={args.truncation:.2f}.png'
     common.save_captioned_image(txt, fake, fp, font=15, opacity=0.2, color=(255,255,0), loc=(0,0), nrow=int(np.sqrt(args.batch_size)), pad_value=1)
     print(f'saved to {fp}')

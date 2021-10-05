@@ -11,7 +11,7 @@ from tqdm import tqdm
 import sys
 sys.path.append('../')
 from metrics.inception import InceptionV3
-
+import common
 
 class Inception3Feature(Inception3):
     def forward(self, x):
@@ -75,12 +75,14 @@ if __name__ == '__main__':
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     args = load_args()
 
+    common.set_random_seed(args.seed)
+
     inception = load_patched_inception_v3()
     inception = nn.DataParallel(inception).eval().to(device)
 
-    if 'pizza10' in args.dataset_name:
+    if 'pizza10' in args.dataset:
         from datasets.pizza10 import Pizza10Dataset
-        dataset = Pizza10Dataset(transform=utils.resnet_transform_train)
+        dataset = Pizza10Dataset(transform=utils.resnet_transform_val)
     else:
         raise Exception('Unsupported dataset!')
     
@@ -95,5 +97,5 @@ if __name__ == '__main__':
     mean = np.mean(features, 0)
     cov = np.cov(features, rowvar=False)
 
-    with open(f'inception_{args.dataset_name}.pkl', 'wb') as f:
-        pickle.dump({'mean': mean, 'cov': cov, 'size': args.size, 'dataset_name': args.dataset_name}, f)
+    with open(f'inception_{args.dataset}.pkl', 'wb') as f:
+        pickle.dump({'mean': mean, 'cov': cov, 'size': args.size, 'dataset': args.dataset}, f)

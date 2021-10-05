@@ -226,7 +226,7 @@ class Pizza10Dataset(data.Dataset):
 class BatchGenerator():
     def __init__(self, args):
         self.args = args
-        assert args.dataset_name in ['pizzaGANdata_new_concise', 'Recipe1M']
+        assert args.dataset in ['pizzaGANdata_new_concise', 'Recipe1M']
         cfg_file = f'{ROOT}/AttnGAN/code/cfg/food_attn2.yml'
         cfg_from_file(cfg_file)
 
@@ -234,9 +234,9 @@ class BatchGenerator():
         self.text_encoder, self.image_encoder, self.netG, _ = build_models(args.ckpt_path,cfg.TRAIN.NET_E)
         # self.netG.eval()
         dataset = None
-        if 'pizzaGANdata_new_concise' == args.dataset_name:
+        if 'pizzaGANdata_new_concise' == args.dataset:
             dataset = Pizza10Dataset(transform = transform)
-        elif 'Recipe1M' == args.dataset_name:
+        elif 'Recipe1M' == args.dataset:
             raise Exception('Unsupported dataset!')
 
         dataloader = data.DataLoader(
@@ -369,7 +369,7 @@ if __name__ == '__main__':
         # ckpt_path=f'{ROOT}/AttnGAN/output/food_attn2_2020_10_28_18_39_59/Model/netG_epoch_12000.pth',
          
         cfg_file = f'{ROOT}/AttnGAN/code/cfg/food_attn2.yml',
-        dataset_name='pizzaGANdata_new_concise',
+        dataset='pizzaGANdata_new_concise',
         batch_size=32,
         size=256,
         device='cuda',

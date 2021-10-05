@@ -4,12 +4,14 @@ from glob import glob
 import csv
 from torchvision import models
 from tqdm import tqdm
-from common import load_args, resize, normalize
 from sklearn.metrics.pairwise import euclidean_distances
 import numpy as np
 from matplotlib import pyplot as plt
 from torchvision.utils import save_image
 import pdb
+import sys
+sys.path.append('../')
+from common import load_args, resize, normalize, ROOT
 
 # by default,
 # k=3
@@ -92,17 +94,15 @@ if __name__ == '__main__':
     assert 'n_sample' in args.__dict__
     assert 'batch_size' in args.__dict__
 
+
     if 'stackgan2' in args.ckpt_dir:
         from stackgan2.generate_batch import BatchGenerator
-    elif 'bert_stylegan2' in args.ckpt_dir:
-        from bert_stylegan2.generate_batch import BatchGenerator
     elif 'AttnGAN' in args.ckpt_dir:
         from AttnGAN.code.generate_batch_Attn import BatchGenerator
     elif 'mpg' in args.ckpt_dir:
         from mpg.generate_batch import BatchGenerator
-    elif 'stylegan2_cat_z' in args.ckpt_dir:
-        from stylegan2_cat_z.generate_batch import BatchGenerator
 
+    args.ckpt_dir = ROOT / args.ckpt_dir
     device = args.device
 
     filename = os.path.join(args.ckpt_dir, f'precisions_and_recalls_{args.n_sample}.csv')

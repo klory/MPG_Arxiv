@@ -63,25 +63,31 @@ def calc_fid(sample_mean, sample_cov, real_mean, real_cov, eps=1e-6):
 
 if __name__ == '__main__':
     from metrics.utils import load_args
+    import common
+    from common import ROOT
     args = load_args()
+    print(args)
     
     # assertations
     assert 'ckpt_dir' in args.__dict__
-    assert 'inception' in args.__dict__
     assert 'device' in args.__dict__
     assert 'n_sample' in args.__dict__
     assert 'batch_size' in args.__dict__
+    assert 'seed' in args.__dict__
 
-    if 'stackgan2/' in args.ckpt_dir:
+    common.set_random_seed(args.seed)
+
+    if args.model in ['stackgan2', 'cookgan']:
         from stackgan2.generate_batch import BatchGenerator
-    elif 'AttnGAN/' in args.ckpt_dir:
+    elif args.model == 'attngan':
         from AttnGAN.code.generate_batch_Attn import BatchGenerator
-    elif 'mpg/' in args.ckpt_dir:
+    elif 'mpg' in args.model:
         from mpg.generate_batch import BatchGenerator
 
     device = args.device
+    args.ckpt_dir = ROOT / args.ckpt_dir
 
-    print(f'load real image statistics from {args.inception}')
+    print(f'==> load real image statistics from {args.inception}')
     with open(args.inception, 'rb') as f:
         embeds = pickle.load(f)
         real_mean = embeds['mean']
@@ -95,7 +101,8 @@ if __name__ == '__main__':
     # *******************************
     # only run for one checkpoint
     # ********************************
-    if hasattr(args, 'ckpt_path'):
+    if not args.sweep:
+        args.ckpt_path = ROOT / args.ckpt_path
         fid = compute_fid(args, inception, real_mean, real_cov)
         print(f'FID = {fid:.4f}')
         sys.exit(0)

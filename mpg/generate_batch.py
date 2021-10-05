@@ -20,13 +20,13 @@ from datasets.utils import gan_transform
 class BatchGenerator():
     def __init__(self, args):
         device = args.device
-        ckpt_path = ROOT / args.ckpt_path
+        ckpt_path = args.ckpt_path
         ckpt_args, _, label_encoder, _, _, netG, _, _, _ = load_mpg(ckpt_path, device=device)
         label_encoder = label_encoder.eval().to(device)
         netG = netG.eval().to(device)
         requires_grad(label_encoder, False)
         requires_grad(netG, False)
-        if args.dataset_name == 'pizza10':
+        if args.dataset == 'pizza10':
             dataset = Pizza10Dataset(transform=gan_transform)
         else:
             raise Exception('Unsupported dataset!')

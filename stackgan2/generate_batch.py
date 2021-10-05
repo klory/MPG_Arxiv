@@ -21,18 +21,18 @@ class BatchGenerator():
     def __init__(self, args):
         device = args.device
         
-        ckpt_path = ROOT / args.ckpt_path
+        ckpt_path = args.ckpt_path
         ckpt_args, _, netG, _, _, _ = load_stackgan2_model(ckpt_path)
         netG = netG.eval().to(device)
 
-        retrieval_model_path = ROOT / args.retrieval_model
+        retrieval_model_path = args.retrieval_model
         _, _, tokenizer, txt_encoder, _, _ = load_retrieval_model(retrieval_model_path, device)
 
         txt_encoder = txt_encoder.eval().to(device)
         requires_grad(txt_encoder, False)
         requires_grad(netG, False)
         
-        if args.dataset_name == 'pizza10':
+        if args.dataset == 'pizza10':
             dataset = Pizza10Dataset(transform=gan_transform)
         else:
             raise Exception('Unsupported dataset!')
