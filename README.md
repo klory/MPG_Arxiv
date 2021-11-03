@@ -1,5 +1,6 @@
 # Setup Environment
-**can NOT run on CPU**
+
+Code is Tested on Ubuntu 20.04 LTS,  **can NOT run on CPU**
 
 ```
 conda create -n mpg python=3.8
@@ -21,7 +22,7 @@ Download Pizza10 Dataset from `google-link/data/Pizza10`.
 cd to `datasets/`
 
 ```
-$ python datasets.py
+$ python pizza10.py
 ```
 
 # Ingredient classifier
